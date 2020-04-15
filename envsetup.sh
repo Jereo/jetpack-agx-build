@@ -1,12 +1,12 @@
 #!/bin/bash
 
-red=$'\e[31m'
-grn=$'\e[32m'
-yel=$'\e[33m'
-blu=$'\e[34m'
-mag=$'\e[35m'
-cyn=$'\e[36m'
-normal=$'\e[0m'
+red=''
+grn=''
+yel=''
+blu=''
+mag=''
+cyn=''
+normal=''
 
 
 BUILD_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
@@ -225,7 +225,7 @@ DEFAULT_TARGET_RELEASE=${TARGET_RELEASE_ARRAY[0]}
 choose_release
 set_target_user
 set_target_pwd
-set_target_ip
+# set_target_ip
 echo
 echo "${TARGET_DEV_ARRAY[@]}" | grep -w "$TARGET_DEV" 2>&1 >/dev/null || (echo "invalid target device" && return 1)
 echo "${TARGET_RELEASE_ARRAY[@]}" | grep -w "$TARGET_RELEASE" 2>&1 >/dev/null || (echo "invalid target release" && return 1)
@@ -236,22 +236,8 @@ echo "TARGET_DEV                : $TARGET_DEV"
 echo "TARGET_RELEASE            : $TARGET_RELEASE"
 echo "Target device login user     : $TARGET_USER"
 echo "Target device login password : $TARGET_PWD"
-echo "Target device IP             : $TARGET_IP"
+# echo "Target device IP             : $TARGET_IP"
 echo
-echo -n "${yel}Are these right? [n/y] "
-read ANSWER
-if [ "$ANSWER"x = "n"x ]
-then
-	edo rm -f $TOP/build/.config
-	export TARGET_DEV=
-	export TARGET_RELEASE=
-	export TARGET_USER=
-	export TARGET_PWD=
-	export TARGET_IP=
-	echo "please re-configure with $ . build/envsetup.sh"
-	echo "${normal}"
-	return 1
-fi
 echo "${normal}"
 
 ## re-write build/.config
@@ -262,8 +248,8 @@ echo "TARGET_PWD=$TARGET_PWD" >>$TOP/build/.config
 echo "TARGET_IP=$TARGET_IP" >>$TOP/build/.config
 
 # Toolchain
-TOOLCHAIN_ROOT=$TOP/prebuilts/gcc
-KERNEL_TOOLCHAIN_ROOT=$TOOLCHAIN_ROOT/kernel
+TOOLCHAIN_ROOT=/opt/linaro/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu
+KERNEL_TOOLCHAIN_ROOT=/opt/linaro
 BSP_TOOLCHAIN_ROOT=$TOOLCHAIN_ROOT/bsp
 
 # DOWNLOAD
@@ -277,13 +263,11 @@ SOURCE_ROOT=$TOP/sources
 OUT=$TOP/out
 
 # Kernel
-KERNEL_PACKAGE=$SOURCE_UNPACK/kernel_src.tbz2
-KERNEL_ROOT=$SOURCE_ROOT/kernel
+KERNEL_ROOT=$SOURCE_ROOT
 KERNEL_OUT=$OUT/KERNEL
 INSTALL_KERNEL_MODULES_PATH=$OUT/MODULES
 
 # C-boot
-CBOOT_PACKAGE=$SOURCE_UNPACK/cboot_src_t19x.tbz2
 CBOOT_ROOT=$SOURCE_ROOT/cboot
 CBOOT_OUT=$OUT/CBOOT
 
@@ -312,6 +296,9 @@ function local_size()
 	stat -c%s $@
 }
 
+if [ -d ${OUT} ];then
+    rm -rf ${OUT}
+fi
 echo "C O M M A N D S:"
 echo -e "${red}rm_pwd${normal}: \t\tauth ssh connection without password"
 source $TOP/build/bspsetup.sh
