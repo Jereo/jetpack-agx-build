@@ -258,7 +258,15 @@ DOANLOAD_ROOT=$TOP/jetpack_download
 # SOURCE
 SOURCE_PACKAGE=$DOANLOAD_ROOT/sources.tbz2
 SOURCE_UNPACK=$DOANLOAD_ROOT/public_sources
-SOURCE_ROOT=$TOP/sources
+if [ ${TARGET_RELEASE} == "4.4EA" ];then
+    if [ ${TARGET_DEV} == "Jetson-Nano" -o ${TARGET_DEV} == "Jetson-TX2" ];then
+        SOURCE_ROOT=$TOP/sources-4.4EA_T210
+    else
+        SOURCE_ROOT=$TOP/sources-4.4EA_T186
+    fi
+else
+    SOURCE_ROOT=$TOP/sources
+fi
 
 OUT=$TOP/out
 
