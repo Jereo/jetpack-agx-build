@@ -41,6 +41,10 @@ function choose_target_conf()
 	local ANSWER
 	while [ -z "$TARGET_CONF" ]
 	do
+        if [ $index -eq 1 ];then
+			export TARGET_CONF=$DEFAULT_TARGET_CONF
+            break
+        fi
 		echo -n "Which config would you choose? [$DEFAULT_TARGET_CONF] "
 		read ANSWER
 
@@ -60,15 +64,6 @@ function choose_target_conf()
 	echo "${grn}"
 	echo "Target device config             : $TARGET_CONF"
 	echo
-	echo -n "${yel}Is it right? [n/y] "
-	read ANSWER
-	if [ "$ANSWER"x = "n"x ]
-	then
-		export TARGET_CONF=
-		echo "please re-configure with your command"
-		echo "${normal}"
-		return 1
-	fi
 	echo "${normal}"
 	return 0
 }
