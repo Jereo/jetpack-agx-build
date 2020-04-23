@@ -9,7 +9,7 @@ if [ "$first_cmd" == "4.3" ];then
     git_repo="origin/l4t/l4t-r32.3.1"
 fi
 if [ "$first_cmd" == "4.4" ];then
-    git_repo="origin/l4t/l4t-r32.3.1"
+    git_repo="origin/l4t/l4t-r32.4.2"
 fi
 if [ "$first_cmd" == "4.4-EA" ];then
     git_repo="origin/l4t/l4t-r32.3.1"
