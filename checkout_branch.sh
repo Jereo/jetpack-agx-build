@@ -14,7 +14,7 @@ fi
 if [ "$first_cmd" == "4.4-EA" ];then
     git_repo="origin/l4t/l4t-r32.3.1"
 fi
-cd ${TOP}../sources
+cd ${TOP}/../sources
 
 gitPaths=`find . -type d -name "\.git" | sed -r "s/\.(\/|git)//g;/patches/d;/^\//d;/^$/d" | uniq`
 
