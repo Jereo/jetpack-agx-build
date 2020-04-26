@@ -85,6 +85,15 @@ function get_setting_from_conf()
 	echo $VALUE
 }
 
+function clone()
+{
+	choose_target_conf || return 1
+
+	pushd ${L4TOUT} &> /dev/null
+	edo sudo ./flash.sh $@ -r -k APP -G `basename ${TARGET_CONF::-5}``date +%Y%m%d%H%M%S`.img `basename ${TARGET_CONF::-5}` mmcblk0p1;
+	popd &> /dev/null
+}
+
 function flash()
 {
 	choose_target_conf || return 1
@@ -166,6 +175,7 @@ function update_kernel()
 }
 
 echo -e "${red}flash${normal}: \t\t\tflash image with options"
+echo -e "${red}clone${normal}: \t\t\tclone image with options"
 if is_xavier || is_tx2
 then
 	echo -e "${red}flash_no_rootfs${normal}: \tflash all except rootfs"
