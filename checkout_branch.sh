@@ -33,7 +33,7 @@ do
     if [ "$first_cmd" != "4.4" ];then
         if [ "x${result}" != "x" ];then
             echo "${gitPath}"
-            gitbranch=master
+            gitbranch="origin/master"
         fi
     fi
 
