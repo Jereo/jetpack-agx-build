@@ -27,11 +27,10 @@ do
         echo "${gitPath}"
         gitbranch=${git_repo}-4.9
     fi
-    temp_branch=""
+    temp_branch="temp_branch"
     result=`git branch | grep "${gitbranch}"`
     if [ "x${result}" != "x" ];then
-        temp_branch=`git branch -a | tail -1 | sed "s/remotes\///g"`
-        git checkout -b ${temp_branch} ${temp_branch}
+        git checkout -b ${temp_branch}
         git branch -D ${gitbranch}
     fi
     git checkout -b ${gitbranch} ${gitbranch}
