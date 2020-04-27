@@ -4,15 +4,12 @@ TOP=$(pwd)
 
 if [ "$first_cmd" == "4.2.2" ];then
     git_repo="origin/l4t/l4t-r32.2"
-fi
-if [ "$first_cmd" == "4.3" ];then
+else if [ "$first_cmd" == "4.3" ];then
     git_repo="origin/l4t/l4t-r32.3.1"
-fi
-if [ "$first_cmd" == "4.4" ];then
+else if [ "$first_cmd" == "4.4" ];then
     git_repo="origin/l4t/l4t-r32.4.2"
-fi
-if [ "$first_cmd" == "4.4-EA" ];then
-    git_repo="origin/l4t/l4t-r32.3.1"
+else
+    echo "Please Input correct version of Jetpack."
 fi
 cd ${TOP}/../sources
 
@@ -27,6 +24,16 @@ do
         echo "${gitPath}"
         gitbranch=${git_repo}-4.9
     fi
+<<<<<<< HEAD
+
+    result=`echo ${gitPath} | grep "jakku"`
+    if [ "x${result}" != "x" -a "$first_cmd" != "4.4" ];then
+        echo "${gitPath}"
+        gitbranch=master
+    fi
+
+=======
+>>>>>>> 4b1f2553ba80bce0f4ffda9ffc1447fb3dc6eeda
     temp_branch="temp_branch"
     result=`git branch | grep "${gitbranch}"`
     if [ "x${result}" != "x" ];then
