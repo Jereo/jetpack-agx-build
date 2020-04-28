@@ -148,6 +148,16 @@ function flash_kernel()
 	flash -k kernel
 }
 
+function flash_dtb()
+{
+    flash -k kernel-dtb
+}
+
+function flash_spe()
+{
+    flash -k spe-fw
+}
+
 function update_kernel()
 {
 	local lmd5
@@ -187,3 +197,6 @@ then
 else
 	echo -e "${red}update_kernel${normal}: \t\tupdate kernel Image"
 fi
+echo -e "${red}flash_dtb${normal}:\t\tUpdate dtb"
+echo -e "${red}flash_spe${normal}:\t\tUpdate spe"
+
