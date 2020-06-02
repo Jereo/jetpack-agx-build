@@ -318,11 +318,11 @@ function ExecBlackList(){
     while  read LINE
     do
         if [ -e ${rootFsDir}${LINE} ];then
-            echo "miivii" | sudo -S rm ${rootFsDir}${LINE}
+            sudo rm ${rootFsDir}${LINE}
         fi
     done < ${rootPatchDir}/${blackListName}
     if [ -e ${rootFsDir}/${blackListName} ];then
-        echo "miivii" | sudo -S rm ${rootFsDir}/${blackListName}
+        sudo rm ${rootFsDir}/${blackListName}
     fi
 }
 
@@ -332,7 +332,7 @@ function ApplyRootFsPatches(){
             neoLog "ERROR" "couldn't find rootfs directory."
             exit 1
         fi
-        echo "miivii" | sudo -S cp -rf ${rootPatchDir}/* ${rootFsDir}
+        sudo cp -rf ${rootPatchDir}/* ${rootFsDir}
         ExecBlackList
     fi
 }
